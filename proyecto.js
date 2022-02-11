@@ -21,9 +21,14 @@ var recargo_total = 0
 //Precio final 
 var precio_final = 0
 
-//Mensajes de alerta para ingresar datos 
-var nombre = prompt("Ingrese su nombre, por favor")
-var edad = prompt("¿Cuantos años tiene? Ingrese solamente números")
+
+//Realizar el siguiente código mientras el usuario no ingrese "SALIR" en el último prompt.
+var user_decision
+while (user_decision != "SALIR") {
+
+//Mensajes de alerta para ingresar datos
+var nombre = prompt("Por favor, ingrese su nombre.")
+var edad = prompt("¿Cuantos años tiene? Ingrese solamente números.")
 var casado = prompt("¿Está casado actualmente?", "Si/No")
 
 //Comprobamos la edad del cónyuge, solamente si se está casado/a
@@ -47,6 +52,18 @@ if ("SI" == hijos.toUpperCase()){
 }
 //1. Convirtiendo la cantidad de hijos a número.
 var cantidad_hijos_numero = parseInt(cantidad_hijos)
+
+//Preguntar la cantidad de propiedades
+var cantidad_propiedades = prompt("¿Cuántas propiedades posée? Ingrese solo números.")
+//Convertir la respuesta a un número
+var cantidad_propiedades_numero = parseInt(cantidad_propiedades)
+
+
+//Preguntar el salario
+var salario = prompt("¿Cuál es su salario? Ingrese solo números.")
+//Convertir la respuesta a número
+var salario_numero = parseInt(salario)
+
 
 //Calcular el recargo total basado en las respuestas ingresadas.
 
@@ -80,9 +97,25 @@ if (cantidad_hijos_numero > 0) {
   recargo_total = recargo_total + recargo
 }
 
+//Recargo por la cantidad de propiedades
+if (cantidad_propiedades_numero > 0){
+  recargo = precio_base * (cantidad_propiedades_numero * 0.35)
+  recargo_total = recargo_total + recargo
+}
+
+//Recargo por los ingresos
+if (salario_numero) {
+  recargo = salario_numero * 0.05
+  recargo_total = recargo_total + recargo
+}
+
 precio_final = precio_base + recargo_total
 //Resultado
 alert ("Para el asegurado "+nombre)
-alert ("El recargo adicional sera de: "+recargo_total)
-alert ("El precio total sera de: "+precio_final)
+alert ("El recargo adicional será de: "+recargo_total)
+alert ("El precio total será de: "+precio_final)
 
+//Prompt preguntando al usuario si quiere generar otra cotización o SALIR.
+user_decision = prompt("¿Desea generar otra cotización? Si quiere salir, ingrese 'SALIR'", "SALIR")
+user_decision = user_decision.toUpperCase()
+} //while
